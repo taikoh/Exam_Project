@@ -1,0 +1,277 @@
+<div class="container-fluid py-4">
+    <div class="d-flex align-items-center gap-3 mb-4">
+        <h1 class="text-start text-light m-0">Products </h1>
+        <h5 class="text-white m-0" style="--bs-text-opacity: .3;">Manage products</h5>
+    </div>
+    <div class="container-fluid mb-3">
+        <div class="row d-flex-wrap gap-2 align-items-center">
+            <div class="col"></div>
+            <div class="col-md-5">
+                <form id="products-search" action="/products/search" method="POST">
+                    <div class="input-group mb-3">
+                        <input id="search-input" type="text" name="name" class="form-control" placeholder="Search Products..">
+                            
+                        <select class="form-select ms-1" name="categoryId" style="max-width: 110px;">
+                                <option selected value="">None</option>
+                                    <% categories.forEach(category => { %>
+                                        <option value="<%= category.id %>">
+                                            <%= category.name %>
+                                        </option>
+                                    <% }) %>
+                            </select>
+                            <select class="form-select ms-1" name="brandId" style="max-width: 110px;">
+                                <option selected value="">None</option>
+                                    <% brands.forEach(brand => { %>
+                                        <option value="<%= brand.id %>">
+                                            <%= brand.name %>
+                                        </option>
+                                    <% }) %>
+                            </select>
+                            <button class="searchButton text-light ms-2 ">Search
+                                <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24"  
+                                fill="currentColor" viewBox="0 0 24 24" >
+                                <!--Boxicons v3.0.8 https://boxicons.com | License  https://docs.boxicons.com/free-->
+                                <path d="M18 10c0-4.41-3.59-8-8-8s-8 3.59-8 8 3.59 8 8 8c1.85 0 3.54-.63 4.9-1.69l5.1 5.1L21.41 20l-5.1-5.1A8 8 0 0 0 18 10M4 10c0-3.31 2.69-6 6-6s6 2.69 6 6-2.69 6-6 6-6-2.69-6-6"></path>
+                                </svg>
+                            </button>
+                            <a href="/products/" class="clear-searchButton text-light ms-1 text-decoration-none" role="button"> Clear
+                                <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24"  
+                                fill="currentColor" viewBox="0 0 24 24" >
+                                <!--Boxicons v3.0.8 https://boxicons.com | License  https://docs.boxicons.com/free-->
+                                <path d="M20 4H8.51c-.64 0-1.25.31-1.63.84l-4.7 6.58a.99.99 0 0 0 0 1.16l4.7 6.58c.37.52.98.84 1.63.84H20c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2m0 14H8.51l-4.29-6 4.29-6H20z"></path><path d="m9.79 9.21 2.8 2.79-2.8 2.79 1.42 1.42 2.79-2.8 2.79 2.8 1.42-1.42-2.8-2.79 2.8-2.79-1.42-1.42-2.79 2.8-2.79-2.8z"></path>
+                                </svg>
+                            </a>
+                    </div>
+                </form>
+            </div>
+            <div class="col d-flex justify-content-end mb-3">
+                <button class="createButton text-light" data-bs-toggle="modal" data-bs-target="#createProduct">Create
+                        <svg class="bin" xmlns="http://www.w3.org/2000/svg" width="24" height="24"  
+                        fill="#ffffff" viewBox="0 0 24 24" >
+                        <!--Boxicons v3.0.8 https://boxicons.com | License  https://docs.boxicons.com/free-->
+                        <path d="M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4z"></path><path d="M12 2C6.49 2 2 6.49 2 12s4.49 10 10 10 10-4.49 10-10S17.51 2 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8"></path>
+                        </svg>
+                </button>
+        </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-dark table-striped table-hover table-bordered align-middle text-center shadow-lg">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Brand</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Image URL</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Date added</th>
+                        <th scope="col">Deleted</th>
+                        <th scope="col">Options</th>
+                    </tr>
+                </thead>
+                    <tbody id="products-table">
+                        <% products.forEach(product => { %>
+                        <tr>
+                            <td><%= product.id %></td>
+                            <td><%= product.name %></td>
+                            <td class="text-break" style="max-width: 250px;"><%= product.description %></td>
+                            <td><%= product.quantity %></td>
+                            <td><%= product.price %></td>
+                            <td><%= product.brand %></td>
+                            <td><%= product.category %></td>
+                            <td class="text-break" style="max-width: 200px;"><%= product.imgurl %></td>
+                            <td><img src="<%= product.imgurl %>" class="btn img-fluid rounded shadow-sm" style="max-width: 70px; max-height: 70px; object-fit: contain;" data-bs-toggle="modal" data-bs-target="#showImage<%= product.id %>"></td>
+                            <td><%= product.date_added %></td>
+                            <td class="text-center align-middle text-success">
+                                <% if (product.is_deleted) { %>
+                                    <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24"  
+                                    fill="currentColor" viewBox="2 2 20 20" >
+                                    <!--Boxicons v3.0.8 https://boxicons.com | License  https://docs.boxicons.com/free-->
+                                    <path d="M9 15.59 4.71 11.3 3.3 12.71l5 5c.2.2.45.29.71.29s.51-.1.71-.29l11-11-1.41-1.41L9.02 15.59Z"></path>
+                                    </svg>
+                                <% } %>
+                            </td>
+                            <td class="align-middle">
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <% if (!product.is_deleted) { %> 
+                                            <form action="/products/<%= product.id %>/delete" method="POST">
+                                                <button class="deleteButton">
+                                                        <svg class="bin" xmlns="http://www.w3.org/2000/svg" width="512" height="512"  
+                                                        fill="#ffffff" viewBox="0 0 24 24" >
+                                                        <!--Boxicons v3.0.8 https://boxicons.com | License  https://docs.boxicons.com/free-->
+                                                        <path d="M17 6V4c0-1.1-.9-2-2-2H9c-1.1 0-2 .9-2 2v2H2v2h2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8h2V6zM9 4h6v2H9zM6 20V8h12v12z"></path><path d="M9 10h2v8H9zm4 0h2v8h-2z"></path>
+                                                        </svg>
+                                                    <span class="tooltip">Delete</span>
+                                                </button>
+                                            </form>
+                                        <% } else { %>
+                                            <form action="/products/<%= product.id %>/restore" method="POST">
+                                                <button class="restoreButton">
+                                                    <svg  xmlns="http://www.w3.org/2000/svg" width="512" height="512"  
+                                                    fill="#ffffff" viewBox="0 0 24 24" >
+                                                    <!--Boxicons v3.0.8 https://boxicons.com | License  https://docs.boxicons.com/free-->
+                                                    <path d="M9 20h3v-2H9c-2.21 0-4-1.79-4-4s1.79-4 4-4h6v4l6-5-6-5v4H9c-3.31 0-6 2.69-6 6s2.69 6 6 6"></path>
+                                                    </svg>
+                                                <span class="tooltip">Restore</span>
+                                                </button>
+                                            </form>
+                                        <% } %>
+                                    <button class="editButton" data-bs-toggle="modal" data-bs-target="#editProduct<%= product.id %>">
+                                        <svg  xmlns="http://www.w3.org/2000/svg" width="512" height="512"  
+                                        fill="#ffffff" viewBox="0 0 24 24" >
+                                        <!--Boxicons v3.0.8 https://boxicons.com | License  https://docs.boxicons.com/free-->
+                                        <path d="M19.67 2.61c-.81-.81-2.14-.81-2.95 0L3.38 15.95c-.13.13-.22.29-.26.46l-1.09 4.34c-.08.34.01.7.26.95.19.19.45.29.71.29.08 0 .16 0 .24-.03l4.34-1.09c.18-.04.34-.13.46-.26L21.38 7.27c.81-.81.81-2.14 0-2.95L19.66 2.6ZM6.83 19.01l-2.46.61.61-2.46 9.96-9.94 1.84 1.84zM19.98 5.86 18.2 7.64 16.36 5.8l1.78-1.78s.09-.03.12 0l1.72 1.72s.03.09 0 .12"></path>
+                                        </svg>
+                                    <span class="tooltip">Edit</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+
+                    <div class="modal fade" id="editProduct<%= product.id %>">
+                        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+                            <div class="modal-content bg-dark border-secondary">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5 text-light">Edit Product</h1>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/products/<%= product.id %>/update" method="POST">
+                                    <div class="mb-3">
+                                        <label for="productName" class="form-label text-light">Name</label>
+                                        <input type="text" id="productName" name="name" class="form-control bg-dark text-light border-secondary" value="<%= product.name %>" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="productDescription" class="form-label text-light">Description</label>
+                                        <textarea id="productDecription" name="description" class="form-control bg-dark text-light border-secondary" rows="4" required><%= product.description %></textarea>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="productPrice" class="form-label text-light">Price</label>
+                                            <input type="number" id="productPrice" name="price" class="form-control bg-dark text-light border-secondary" value="<%= product.price %>" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="productQuantity" class="form-label text-light">Quantity</label>
+                                            <input type="number" id="productQuantity" name="quantity" class="form-control bg-dark text-light border-secondary" value="<%= product.quantity %>" required>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="productImgURL" class="form-label text-light">Image URL</label>
+                                        <input type="url" id="productImgURL" name="imgurl" class="form-control bg-dark text-light border-secondary" value="<%= product.imgurl %>" required>
+                                    </div>
+                                    <div class="modal-footer border-secondary">
+                                        <button type="button" class="cancelButton me-auto" data-bs-dismiss="modal">
+                                            <span>Cancel</span>
+                                            <span></span>
+                                        </button>
+                                        <button type="submit" class="modal-submitButton">
+                                            <span>Submit</span>
+                                            <span></span>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="showImage<%= product.id %>">
+                        <div class="modal-dialog modal-lg modal-dialog-centered">
+                            <div class="modal-content bg-dark border-secondary">
+                                <div class="modal-header justify-content-center">
+                                    <h1 class="modal-title fs-5 text-light text-center"><%= product.name %></h1>
+                                </div>
+                                <div class="modal-body d-flex text-center justify-content-center align-items-center">
+                                    <img src="<%= product.imgurl %>" class="img-fluid rounded shadow-sm">
+                                </div>
+                                <div class="modal-footer border-secondary justify-content-center">
+                                    <div class="d-flex gap-4 text-center">
+                                        <p class="text-light text-nowrap mb-0">Price: <%= product.price %></p>
+                                        <p class="text-light text-nowrap mb-0">In stock: <%= product.quantity %></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <% }) %>
+
+                    <div class="modal fade" id="createProduct">
+                        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+                            <div class="modal-content bg-dark border-secondary">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5 text-light">Create Product</h1>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/products/create" method="POST">
+                                    <div class="mb-3">
+                                        <label for="productName" class="form-label text-light">Name</label>
+                                        <input type="text" id="productName" name="name" class="form-control bg-dark text-light border-secondary" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="productDescription" class="form-label text-light">Description</label>
+                                        <textarea id="productDecription" name="description" class="form-control bg-dark text-light border-secondary" rows="3" required></textarea>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="productPrice" class="form-label text-light">Price</label>
+                                            <input type="number" id="productPrice" name="price" class="form-control bg-dark text-light border-secondary" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label for="productQuantity" class="form-label text-light">Quantity</label>
+                                            <input type="number" id="productQuantity" name="quantity" class="form-control bg-dark text-light border-secondary" required>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="productImgURL" class="form-label text-light">Image URL</label>
+                                        <input type="url" id="productImgURL" name="imgurl" class="form-control bg-dark text-light border-secondary" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="productDateAdded" class="form-label text-light">Date Added</label>
+                                        <input type="date" id="productDateAdded" name="date_added" class="form-control bg-dark text-light border-secondary" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="brandSelect" class="form-label">Brand</label>
+                                        <select id="brandSelect" name="brand_id" class="form-select bg-dark text-light border-secondary">
+                                            <% brands.forEach(brand => { %>
+                                                <option value="<%= brand.id %>">
+                                                    <%= brand.name %>
+                                                </option>
+                                            <% }) %>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="categorySelect" class="form-label">Category</label>
+                                        <select id="categorySelect" name="category_id" class="form-select bg-dark text-light border-secondary">
+                                            <% categories.forEach(category => { %>
+                                                <option value="<%= category.id %>">
+                                                    <%= category.name %>
+                                                </option>
+                                            <% }) %>
+                                        </select>
+                                    </div>
+                                    <div class="modal-footer border-secondary">
+                                        <button type="button" class="cancelButton me-auto" data-bs-dismiss="modal">
+                                            <span>Cancel</span>
+                                            <span></span>
+                                        </button>
+                                        <button type="submit" class="modal-submitButton">
+                                            <span>Submit</span>
+                                            <span></span>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    </tbody>
+            </table>
+        </div>
+</div>

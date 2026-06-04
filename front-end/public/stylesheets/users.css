@@ -1,0 +1,14 @@
+.table-dark td.bronze-member {
+    background-color: #CD7F32 !important;
+    color: black !important;
+}
+
+.table-dark td.silver-member {
+    background-color: #C0C0C0 !important;
+    color: black !important;
+}
+
+.table-dark td.gold-member {
+    background-color: #FFD700 !important;
+    color: black !important;
+}

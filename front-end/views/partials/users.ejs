@@ -1,0 +1,126 @@
+<div class="container-fluid py-4">
+    <div class="d-flex align-items-center gap-3 mb-4">
+        <h1 class="text-start text-light m-0">Users </h1>
+        <h5 class="text-white m-0" style="--bs-text-opacity: .3;">Manage users</h5>
+    </div>
+        <div class="table-responsive">
+            <table class="table table-dark table-bordered align-middle text-center shadow-lg">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">First Name</th>
+                        <th scope="col">Last Name</th>
+                        <th scope="col">E-mail</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">City</th>
+                        <th scope="col">Telephone</th>
+                        <th scope="col">Role</th>
+                        <th scope="col">Discount</th>
+                        <th scope="col">Membership</th>
+                        <th scope="col">Edit</th>
+                    </tr>
+                </thead>
+                    <tbody>
+                        <% users.forEach(user => { %>
+                        <tr>
+                            <td><%= user.id %></td>
+                            <td><%= user.username %></td>
+                            <td><%= user.firstname %></td>
+                            <td><%= user.lastname %></td>
+                            <td><%= user.email %></td>
+                            <td><%= user.address %></td>
+                            <td><%= user.city %></td>
+                            <td><%= user.phone %></td>
+                            <td><%= user.Role.name %></td>
+                            <td><%= user.Membership.discount %>%</td>
+                            <% if (user.Membership.name === "Bronze") { %> 
+                                <td class="bronze-member"><%= user.Membership.name %></td>    
+                            <% } else if (user.Membership.name === "Silver") { %> 
+                                <td class="silver-member"><%= user.Membership.name %></td>   
+                            <% } else { %> 
+                                <td class="gold-member"><%= user.Membership.name %></td>  
+                            <% } %>
+                            <td class="align-middle">
+                                <div class="d-flex justify-content-center">
+                                    <button class="editButton" data-bs-toggle="modal" data-bs-target="#editUser<%= user.id %>">
+                                        <svg  xmlns="http://www.w3.org/2000/svg" width="512" height="512"  
+                                        fill="#ffffff" viewBox="0 0 24 24" >
+                                        <!--Boxicons v3.0.8 https://boxicons.com | License  https://docs.boxicons.com/free-->
+                                        <path d="M19.67 2.61c-.81-.81-2.14-.81-2.95 0L3.38 15.95c-.13.13-.22.29-.26.46l-1.09 4.34c-.08.34.01.7.26.95.19.19.45.29.71.29.08 0 .16 0 .24-.03l4.34-1.09c.18-.04.34-.13.46-.26L21.38 7.27c.81-.81.81-2.14 0-2.95L19.66 2.6ZM6.83 19.01l-2.46.61.61-2.46 9.96-9.94 1.84 1.84zM19.98 5.86 18.2 7.64 16.36 5.8l1.78-1.78s.09-.03.12 0l1.72 1.72s.03.09 0 .12"></path>
+                                        </svg>
+                                    <span class="tooltip">Edit</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+
+                    <div class="modal fade" id="editUser<%= user.id %>">
+                        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+                            <div class="modal-content bg-dark border-secondary">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5 text-light">Edit User</h1>
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="/users/<%= user.id %>/update" method="POST">
+                                    <div class="mb-3">
+                                    <label for="userFirstname" class="form-label text-light">First name</label>
+                                    <input type="text" id="userFirstname" name="firstname" class="form-control bg-dark text-light border-secondary" value="<%= user.firstname %>" required>
+                                    </div>
+                                    <div class="mb-3">
+                                    <label for="userLastname" class="form-label text-light">Last name</label>
+                                    <input type="text" id="userLastname" name="lastname" class="form-control bg-dark text-light border-secondary" rows="4" value="<%= user.lastname %>" required></input>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                        <label for="userUsername" class="form-label text-light">Username</label>
+                                        <input type="text" id="userUsername" name="username" class="form-control bg-dark text-light border-secondary" value="<%= user.username %>" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                        <label for="userEmail" class="form-label text-light">E-mail</label>
+                                        <input type="email" id="userEmail" name="email" class="form-control bg-dark text-light border-secondary" value="<%= user.email %>" required>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                    <label for="userAddress" class="form-label text-light">Address</label>
+                                    <input type="text" id="userAddress" name="address" class="form-control bg-dark text-light border-secondary" value="<%= user.address %>" required>
+                                    </div>
+                                    <div class="mb-3">
+                                    <label for="userCity" class="form-label text-light">City</label>
+                                    <input type="text" id="userCity" name="city" class="form-control bg-dark text-light border-secondary" value="<%= user.city %>" required>
+                                    </div>
+                                    <div class="mb-3">
+                                    <label for="userPhone" class="form-label text-light">Phone number</label>
+                                    <input type="tel" id="userPhone" name="phone" class="form-control bg-dark text-light border-secondary" value="<%= user.phone %>" required>
+                                    </div>
+                                    <label for="roleSelect" class="form-label">Role</label>
+                                    <select id="roleSelect" name="role_id" class="form-select bg-dark text-light border-secondary">
+                                        <% roles.forEach(role => { %>
+                                            <option value="<%= role.id %>" <%= role.id === user.role_id ? "selected" : "" %>>
+                                            <%= role.name %>
+                                        </option>
+                                        <%}) %>
+                                    </select>
+                                    </div>
+                                    <div class="modal-footer border-secondary">
+                                        <button type="button" class="cancelButton me-auto" data-bs-dismiss="modal">
+                                            <span>Cancel</span>
+                                            <span></span>
+                                        </button>
+                                        <button type="submit" class="modal-submitButton">
+                                            <span>Submit</span>
+                                            <span></span>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <% }) %>
+                    </tbody>
+            </table>
+        </div>
+    </div>

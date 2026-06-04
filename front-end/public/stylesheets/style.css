@@ -1,0 +1,25 @@
+* {
+	box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: rgb(17, 24, 39);
+  color: rgb(243, 244, 246);
+  min-height: 100vh;
+  padding-top: 60px;
+/* https://grabient.com/HQBgrAzANKAsAcMT0cAjLAnDNYDsOsATDEUSKWicGWlBMHmtA3kS8AGybQC0oabGlAhOUYSGZJmQA?style=linearSwatches&steps=34 */
+
+background: linear-gradient(90deg, #030408 0.000%, #030408 2.941%, #050509 calc(2.941% + 1px), #050509 5.882%, #06070b calc(5.882% + 1px), #06070b 8.824%, #08090c calc(8.824% + 1px), #08090c 11.765%, #090a0e calc(11.765% + 1px), #090a0e 14.706%, #0b0c0f calc(14.706% + 1px), #0b0c0f 17.647%, #0d0e11 calc(17.647% + 1px), #0d0e11 20.588%, #0e0f12 calc(20.588% + 1px), #0e0f12 23.529%, #101114 calc(23.529% + 1px), #101114 26.471%, #111315 calc(26.471% + 1px), #111315 29.412%, #131417 calc(29.412% + 1px), #131417 32.353%, #151619 calc(32.353% + 1px), #151619 35.294%, #16171a calc(35.294% + 1px), #16171a 38.235%, #18191c calc(38.235% + 1px), #18191c 41.176%, #191a1d calc(41.176% + 1px), #191a1d 44.118%, #1b1c1f calc(44.118% + 1px), #1b1c1f 47.059%, #1c1d20 calc(47.059% + 1px), #1c1d20 50.000%, #1d1e21 calc(50.000% + 1px), #1d1e21 52.941%, #1f2023 calc(52.941% + 1px), #1f2023 55.882%, #202124 calc(55.882% + 1px), #202124 58.824%, #212225 calc(58.824% + 1px), #212225 61.765%, #222327 calc(61.765% + 1px), #222327 64.706%, #242528 calc(64.706% + 1px), #242528 67.647%, #252629 calc(67.647% + 1px), #252629 70.588%, #26272a calc(70.588% + 1px), #26272a 73.529%, #27282b calc(73.529% + 1px), #27282b 76.471%, #28292d calc(76.471% + 1px), #28292d 79.412%, #292a2e calc(79.412% + 1px), #292a2e 82.353%, #2a2a2f calc(82.353% + 1px), #2a2a2f 85.294%, #2a2b2f calc(85.294% + 1px), #2a2b2f 88.235%, #2b2c30 calc(88.235% + 1px), #2b2c30 91.176%, #2c2d31 calc(91.176% + 1px), #2c2d31 94.118%, #2c2d32 calc(94.118% + 1px), #2c2d32 97.059%, #2d2e33 calc(97.059% + 1px) 100.000%);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+}

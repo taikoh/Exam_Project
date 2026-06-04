@@ -1,0 +1,27 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	margin: 0;
+
+	background-image: url("./images/login_background.jpg");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.form-container {
+	width: 320px;
+	max-width: 400px;
+	border-radius: 1rem;
+	border: 1px solid rgb(143, 226, 251);
+	background-color: rgba(19, 19, 34, 0.9);
+	padding: 2rem;
+	color: rgba(243, 244, 246, 1);
+	backdrop-filter: blur(10px);
+}
