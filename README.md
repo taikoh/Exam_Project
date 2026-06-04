@@ -1,4 +1,4 @@
-# E-commerce Full-Stack Admin Dashboard
+# E-commerce -  Admin Dashboard
 ![Node.js](https://img.shields.io/badge/node.js-v22+-green)
 ![Express](https://img.shields.io/badge/express.js-backend-blue)
 ![Sequelize](https://img.shields.io/badge/sequelize-ORM-orange)
