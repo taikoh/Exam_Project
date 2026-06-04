@@ -32,30 +32,35 @@ Full stack e-commerce admin dashboard application built using [Node.js](http://N
 
 ### Login Page
 
+Users can authenticate using their credentials before accessing the administrator dashboard.
 <p align="center">
   <img src="./screenshots/login.png" width="900">
 </p>
 
 ### Products Dashboard
 
+Administrators can create, edit, search, delete and restore products from a single interface.
 <p align="center">
   <img src="./screenshots/products.png" width="900">
 </p>
 
 ### Create Product Modal
 
+Administrators can create new products by providing product details, selecting a brand and category, and submitting the form through a modal interface.
 <p align="center">
   <img src="./screenshots/create.png" width="900">
 </p>
 
 ### Orders Dashboard
 
+Administrators can view and edit customer orders, purchased products, discounts applied and the final order totals from a single dashboard.
 <p align="center">
   <img src="./screenshots/orders.png" width="900">
 </p>
 
 ### Swagger Documentation
 
+Swagger provides interactive API documentation, allowing developers to explore endpoints, view request and response formats, and test API functionality directly from the browser.
 <p align="center">
   <img src="./screenshots/swagger.png" width="900">
 </p>
